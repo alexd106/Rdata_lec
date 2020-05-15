@@ -1,0 +1,577 @@
+---
+title: "Getting the data in"
+event: "BI5009"
+date: "Autumn 2020"
+author: 
+  - "Alex Douglas"
+institute: "University of Aberdeen"
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: ["xaringan-themer.css", "custom.css"]
+    nature:
+      highlightStyle: github
+      highlightLanguage: ["r", "yaml", "markdown"]
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#1F4257",
+  # header_font_google = google_font("Josefin Sans"),
+  # text_font_google   = google_font("Montserrat", "300", "300i"),
+  # code_font_google   = google_font("Droid Mono")
+)
+```
+
+class: title-slide, center, middle
+
+# `r rmarkdown::metadata$title`
+
+### &#183; `r rmarkdown::metadata$author` &#183;
+
+### `r rmarkdown::metadata$institute`
+
+#### `r rmarkdown::metadata$event` &#183; 2019
+
+---
+
+class: inverse, right, bottom
+
+
+<img style="border-radius: 50%;" src="https://github.com/alexd106.png" width="200px"/>
+
+### Find me at...
+
+.medium[
+[`r icon::fa("github")` Alex Douglas](https://github.com/alexd106)  
+[`r icon::fa("twitter")` Scedacity](https://twitter.com/scedacity)  
+[`r icon::fa("paper-plane")` a.douglas@abdn.ac.uk](mailto:a.douglas@abdn.ac.uk)
+]
+
+---
+
+class: center, middle
+
+# Let's get started...
+
+<img src = "images/started.gif" width = 600px>
+
+---
+
+class: left, middle
+
+# learning outcomes
+
+.pull-left[
+.medium[
+
+- recognise different types of data in R `r emo::ji("heavy_check_mark")`
+
+- understand some different data structures `r emo::ji("heavy_check_mark")`
+
+- learn how to import data into R `r emo::ji("heavy_check_mark")`
+
+- learn how to manipulate data in R `r emo::ji("heavy_check_mark")`
+
+- learn how to export data from R `r emo::ji("heavy_check_mark")`
+]
+]
+
+.pull-right[
+<img src = "images/math.gif" width = 900px height = 275px>
+
+]
+---
+background-image: url(images/data-types.png)
+background-size: 500px
+background-position: 80% 50%
+
+
+class: top, left
+
+# types of data in R
+
+.pull-left[
+.large[
+six types of data in R
+]
+.medium[
+>**numeric** - 1.618, 3.14, 2.718 
+
+>**integers** - 1, 2, 3, 42, 101 
+
+>**logical** - TRUE or FALSE  
+
+>**character** - "BI5009", "Blue" 
+
+>**complex** - `r emo::ji("x")`
+
+>**raw** - `r emo::ji("x")`  
+]
+]
+---
+
+background-image: url(images/data-types.png)
+background-size: 500px
+background-position: 80% 50%
+
+class: top, left
+
+# data structures
+
+.pull-left[
+.large[
+five data structures
+]
+.medium[
+>**vector** 
+
+>**matrix** 
+
+>**array** 
+
+>**data frame**  
+
+>**list** `r emo::ji("x")`  
+]
+]
+
+---
+
+background-image: url(images/scal_vec.png)
+background-size: 500px
+background-position: 90% 50%
+
+class: top, left
+
+# vectors
+
+.pull-left[
+.medium[
+- one dimensional collection elements 
+
+- can contain all data types  
+
+- all elements must be of the same type 
+
+```{r, vec, prompt=TRUE, eval=FALSE, collapse=TRUE}
+num <- 42
+numbers <- c(2, 3, 4, 5, 6)
+char <- c("red", "green")
+log <- c(TRUE, TRUE, FALSE)
+my_na <- c(NA, NA, NA, NA)
+mix <- c(1, 2, 3, NA, 5)
+```
+]
+]
+
+---
+
+background-image: url(images/mat_array.png)
+background-size: 500px
+background-position: 95% 50%
+
+class: top, left
+
+# matrices and arrays
+
+.pull-left[
+.medium[
+- a vector with extra dimensions
+
+- again, objects must be of the same type 
+
+- arrays are multidimensional matrices  
+
+```{r, mat, prompt=TRUE, collapse=TRUE}
+mat.1 <- matrix(1:12, nrow=4)
+mat.1
+```
+
+```{r, array, prompt=TRUE, collapse=TRUE}
+array.1 <- array(1:16, dim=c(2,4,2))
+```
+]
+]
+---
+
+class: top, left
+
+# data frames
+
+.medium[
+- most commonly used data structure for statistical data analysis
+
+- powerful 2-dimensional vector holding structure
+
+- dataframes can hold vectors of any of the basic classes of data 
+]
+
+```{r, df1, echo=FALSE, comment=""}
+flowers <- read.table('data/flower.txt', header = TRUE, sep = "\t")
+head(flowers, n = 10)
+```
+---
+
+background-image: url(images/tidy-1.png)
+background-size: 1200px
+background-position: 50% 50%
+
+class: top, left
+
+# tidy data
+---
+
+background-image: url(images/excel.png)
+background-size: 500px
+background-position: 95% 50%
+
+class: top, left
+
+# importing data
+
+.medium[
+- simplest method is to use spreadsheet  
+and then import data into R 
+
+- use either MS Excel or  LibreOffice calc
+
+- File --> Save as ... menu
+
+- save as a tab delimited file (*.txt) 
+
+- missing data represented with NA
+
+- no spaces in variable names
+
+- keep variable names short & informative
+]
+
+---
+
+class: top, left
+
+# importing data
+.medium[
+- the `read.table()` function is the workhorse
+]
+<br>
+.medium[
+.center[`petunia <- read.table('data/flowers.txt', header = TRUE, sep = '\t')`]
+]
+
+--
+background-image: url(images/braces.png)
+background-size: 250px
+background-position: 3% 60%
+--
+background-image: url(images/braces2.png)
+background-size: 300px
+background-position: 20% 65%
+--
+background-image: url(images/braces3.png)
+background-size: 300px
+background-position: 45% 65%
+--
+background-image: url(images/braces4.png)
+background-size: 300px
+background-position: 72% 65%
+--
+background-image: url(images/braces5.png)
+background-size: 300px
+background-position: 95% 65%
+
+
+---
+
+
+class: top, left
+
+# importing data
+
+.medium[
+- sometimes columns are separated by commas 
+]
+
+<br>
+.medium[
+.center[`petunia <- read.table('data/flowers.csv', header = TRUE,` .red[sep = ','])`]
+
+
+.center[OR]
+
+.center[`petunia <-` .red[read.csv]`('flowers.csv')`      # if comma-separated]  
+<br>
+- functions in the `foreign` package allows you to import files of other formats (i.e. from SAS, SPSS, Minitab etc)
+
+- use the `xlsx` package to import MS Excel spreadsheets directly (not recommended)
+
+]
+
+---
+
+class: top, left
+
+# importing data
+
+.medium[
+- to view the contents of a data frame, type it's name
+
+- rarely a good idea as just fills up your console
+]
+
+```{r, flow1, echo=FALSE, eval=c(1,2,3), collapse=TRUE, prompt=TRUE, comment=""}
+print('flowers', quote = FALSE)
+flowers <- read.table('data/flower.txt', header = TRUE, sep = "\t")
+head(flowers, n = 10)
+```
+
+---
+
+class: top, left
+
+# data wrangling
+
+.medium[
+- use the `str()` function to summarise the structure of your data frame
+]
+```{r, flow2, echo=TRUE,  collapse=TRUE, prompt=TRUE, comment=""}
+str(flowers)
+```
+.medium[
+- data frame dimensions, list of variables, type of variables
+
+- list variable names with `names()` function 
+]
+
+```{r, flow3, echo=TRUE,  collapse=TRUE, prompt=TRUE, comment=""}
+names(flowers)
+```
+---
+
+class: top, left
+
+# data wrangling
+
+.medium[
+- access variables in your data frame using the `$` notation
+]
+
+```{r, flow4, echo=TRUE,  collapse=TRUE, prompt=TRUE, comment=""}
+flowers$height
+```
+
+.medium[
+- you can extract elements in the data frame using  the `[rowIndex, columnIndex]` method 
+
+- `Index` can either be a positional index or a logical index
+]
+---
+
+class: top, left
+
+# positional index
+
+.medium[
+- provide the row and column position of the data you wish to extract 
+
+- `index` can either be a positional index or a logical index
+]
+
+```{r, flow5, echo=TRUE,  collapse=TRUE, prompt=TRUE, comment=""}
+flowers[1, 4]      # extract value of first row and 4th column
+```
+
+.medium[
+- extract multiple elements by supplying vectors for `rowIndex` and `columnIndex` 
+
+```{r, flow6, echo=TRUE,  collapse=TRUE, prompt=TRUE, comment=""}
+flowers[1:3, 1:4]      # extract rows 1 to 3 and columns 1 to 4
+```
+
+
+]
+---
+
+class: top, left
+
+# positional index
+
+.medium[
+- another example
+]
+
+```{r, flow7, echo=TRUE,  collapse=TRUE, prompt=TRUE, comment=""}
+flowers[c(3,8,20), c(1, 4, 5, 6)]     # rows 3, 8 and 20 and columns 1, 4, 5 and 6
+```
+
+.medium[
+- can assign these extracted values to another object if you want
+
+- new object inherits `data.frame` class
+]
+
+```{r, flow8, echo=TRUE,  collapse=TRUE, prompt=TRUE, comment=""}
+flowers_red <- flowers[c(3,8,20), c(1, 4, 5, 6)]
+flowers_red
+```
+
+---
+
+class: top, left
+
+# positional index
+
+.medium[
+- we can use a short cut if we want all rows or all columns extracted
+
+- omitting the column index is shorthand for 'all columns'
+]
+
+```{r, flow9, echo=TRUE, collapse=TRUE, prompt=TRUE, comment=""}
+flowers[1:3, ]
+```
+
+.medium[
+- omitting the row index is shorthand for 'all rows'
+]
+
+```{r, flow10, echo=TRUE, eval=FALSE, prompt=TRUE}
+flowers[, 1:3]
+```
+
+
+---
+
+class: top, left
+
+# positional index
+
+.medium[
+- an alternative method to select columns is to name the columns directly for `columnIndex`
+]
+
+```{r, flow11, echo=TRUE, collapse=TRUE, prompt=TRUE, comment=""}
+flowers[1:10, c('treat', 'nitrogen', 'leafarea', 'shootarea')]
+```
+
+
+---
+
+class: top, left
+
+# logical index
+
+.medium[
+- we can also extract rows based on a logical test
+
+- example, let's extract all rows where the `height` variable is greater than 12 
+]
+
+```{r, flow12, echo=TRUE, collapse=TRUE, prompt=TRUE, comment=""}
+flowers[flowers$height > 12,]
+```
+
+.medium[
+- or where `leafarea` is equal to 8.7
+]
+
+```{r, flow13, echo=TRUE, collapse=TRUE, prompt=TRUE, comment=""}
+flowers[flowers$leafarea == 8.7,]
+```
+
+---
+
+class: top, left
+
+# logical index
+
+.medium[
+- we can combine logical tests using the `&` symbol (AND) or the `|` symbol (OR)
+
+- example, extract all rows where `height` is > 10.5 and `nitrogen` is equal to `"medium"`
+]
+
+```{r, flow14, echo=TRUE, collapse=TRUE, prompt=TRUE, comment=""}
+flowers[flowers$height > 10.5 & flowers$nitrogen == 'medium',]
+```
+
+.medium[
+- or `height` is greater than 12.3 OR less than 1.8
+]
+
+```{r, flow15, echo=TRUE, collapse=TRUE, prompt=TRUE, comment=""}
+flowers[flowers$height > 12.3 | flowers$height < 1.8,]
+```
+
+---
+
+class: top, left
+
+# exporting data frames
+
+.medium[
+- the `write.table()` function exports data frames to an external file
+<br>
+]
+.large[
+`write.table(flowers_red, 'output/flowers2.txt', col.names = TRUE, row.names = FALSE)`
+]
+
+.medium[
+- saves `flowers_red` data frame to a file named 'flowers.txt' in the output directory
+
+- `col.names = TRUE` argument includes the column names in the file
+
+- `row.names = FALSE` argument supresses the row names in the file
+]
+
+---
+
+class: middle, left
+
+# other options
+
+.medium[
+- there are many other options for importing and exporting data in R
+
+- the `fread()` and `fwrite()` functions in the `read.table` package are blazingly fast
+
+- the `read_delim()` and `write_delim()` (and other related) functions from the `readr` package for tidyverse alternatives
+
+- if you have a lot of data (I mean alot!) then take a look at the `ff` amd `bigmemory` packages
+]
+
+---
+
+class: top, left
+
+# logical index
+
+.medium[
+- we can also extract rows based on a logical test
+
+- example, let's extract all rows where the `height` variable is greater than 12 
+]
+
+---
+
+class: top, left
+
+# logical index
+
+.medium[
+- we can also extract rows based on a logical test
+
+- example, let's extract all rows where the `height` variable is greater than 12 
+]
+---

@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Getting the data in</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alex Douglas" />
+    <link href="libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+class: title-slide, center, middle
+
+# Getting the data in
+
+### &amp;#183; Alex Douglas &amp;#183;
+
+### University of Aberdeen
+
+#### BI5009 &amp;#183; 2019
+
+---
+
+class: inverse, right, bottom
+
+
+&lt;img style="border-radius: 50%;" src="https://github.com/alexd106.png" width="200px"/&gt;
+
+### Find me at...
+
+.medium[
+[<i class="fab  fa-github "></i> Alex Douglas](https://github.com/alexd106)  
+[<i class="fab  fa-twitter "></i> Scedacity](https://twitter.com/scedacity)  
+[<i class="fas  fa-paper-plane "></i> a.douglas@abdn.ac.uk](mailto:a.douglas@abdn.ac.uk)
+]
+
+---
+
+class: center, middle
+
+# Let's get started...
+
+&lt;img src = "images/started.gif" width = 600px&gt;
+
+---
+
+class: left, middle
+
+# learning outcomes
+
+.pull-left[
+.medium[
+
+- recognise different types of data in R ✔️
+
+- understand some different data structures ✔️
+
+- learn how to import data into R ✔️
+
+- learn how to manipulate data in R ✔️
+
+- learn how to export data from R ✔️
+]
+]
+
+.pull-right[
+&lt;img src = "images/math.gif" width = 900px height = 275px&gt;
+
+]
+---
+background-image: url(images/data-types.png)
+background-size: 500px
+background-position: 80% 50%
+
+
+class: top, left
+
+# types of data in R
+
+.pull-left[
+.large[
+six types of data in R
+]
+.medium[
+&gt;**numeric** - 1.618, 3.14, 2.718 
+
+&gt;**integers** - 1, 2, 3, 42, 101 
+
+&gt;**logical** - TRUE or FALSE  
+
+&gt;**character** - "BI5009", "Blue" 
+
+&gt;**complex** - ❌
+
+&gt;**raw** - ❌  
+]
+]
+---
+
+background-image: url(images/data-types.png)
+background-size: 500px
+background-position: 80% 50%
+
+class: top, left
+
+# data structures
+
+.pull-left[
+.large[
+five data structures
+]
+.medium[
+&gt;**vector** 
+
+&gt;**matrix** 
+
+&gt;**array** 
+
+&gt;**data frame**  
+
+&gt;**list** ❌  
+]
+]
+
+---
+
+background-image: url(images/scal_vec.png)
+background-size: 500px
+background-position: 90% 50%
+
+class: top, left
+
+# vectors
+
+.pull-left[
+.medium[
+- one dimensional collection elements 
+
+- can contain all data types  
+
+- all elements must be of the same type 
+
+
+```r
+&gt; num &lt;- 42
+&gt; numbers &lt;- c(2, 3, 4, 5, 6)
+&gt; char &lt;- c("red", "green")
+&gt; log &lt;- c(TRUE, TRUE, FALSE)
+&gt; my_na &lt;- c(NA, NA, NA, NA)
+&gt; mix &lt;- c(1, 2, 3, NA, 5)
+```
+]
+]
+
+---
+
+background-image: url(images/mat_array.png)
+background-size: 500px
+background-position: 95% 50%
+
+class: top, left
+
+# matrices and arrays
+
+.pull-left[
+.medium[
+- a vector with extra dimensions
+
+- again, objects must be of the same type 
+
+- arrays are multidimensional matrices  
+
+
+```r
+&gt; mat.1 &lt;- matrix(1:12, nrow=4)
+&gt; mat.1
+##      [,1] [,2] [,3]
+## [1,]    1    5    9
+## [2,]    2    6   10
+## [3,]    3    7   11
+## [4,]    4    8   12
+```
+
+
+```r
+&gt; array.1 &lt;- array(1:16, dim=c(2,4,2))
+```
+]
+]
+---
+
+class: top, left
+
+# data frames
+
+.medium[
+- most commonly used data structure for statistical data analysis
+
+- powerful 2-dimensional vector holding structure
+
+- dataframes can hold vectors of any of the basic classes of data 
+]
+
+
+```
+   treat nitrogen block height weight leafarea shootarea flowers
+1    tip   medium     1    7.5   7.62     11.7      31.9       1
+2    tip   medium     1   10.7  12.14     14.1      46.0      10
+3    tip   medium     1   11.2  12.76      7.1      66.7      10
+4    tip   medium     1   10.4   8.78     11.9      20.3       1
+5    tip   medium     1   10.4  13.58     14.5      26.9       4
+6    tip   medium     1    9.8  10.08     12.2      72.7       9
+7    tip   medium     1    6.9  10.11     13.2      43.1       7
+8    tip   medium     1    9.4  10.28     14.0      28.5       6
+9    tip   medium     2   10.4  10.48     10.5      57.8       5
+10   tip   medium     2   12.3  13.48     16.1      36.9       8
+```
+---
+
+background-image: url(images/tidy-1.png)
+background-size: 1200px
+background-position: 50% 50%
+
+class: top, left
+
+# tidy data
+---
+
+background-image: url(images/excel.png)
+background-size: 500px
+background-position: 95% 50%
+
+class: top, left
+
+# importing data
+
+.medium[
+- simplest method is to use spreadsheet  
+and then import data into R 
+
+- use either MS Excel or  LibreOffice calc
+
+- File --&gt; Save as ... menu
+
+- save as a tab delimited file (*.txt) 
+
+- missing data represented with NA
+
+- no spaces in variable names
+
+- keep variable names short &amp; informative
+]
+
+---
+
+class: top, left
+
+# importing data
+.medium[
+- the `read.table()` function is the workhorse
+]
+&lt;br&gt;
+.medium[
+.center[`petunia &lt;- read.table('data/flowers.txt', header = TRUE, sep = '\t')`]
+]
+
+--
+background-image: url(images/braces.png)
+background-size: 250px
+background-position: 3% 60%
+--
+background-image: url(images/braces2.png)
+background-size: 300px
+background-position: 20% 65%
+--
+background-image: url(images/braces3.png)
+background-size: 300px
+background-position: 45% 65%
+--
+background-image: url(images/braces4.png)
+background-size: 300px
+background-position: 72% 65%
+--
+background-image: url(images/braces5.png)
+background-size: 300px
+background-position: 95% 65%
+
+
+---
+
+
+class: top, left
+
+# importing data
+
+.medium[
+- sometimes columns are separated by commas 
+]
+
+&lt;br&gt;
+.medium[
+.center[`petunia &lt;- read.table('data/flowers.csv', header = TRUE,` .red[sep = ','])`]
+
+
+.center[OR]
+
+.center[`petunia &lt;-` .red[read.csv]`('flowers.csv')`      # if comma-separated]  
+&lt;br&gt;
+- functions in the `foreign` package allows you to import files of other formats (i.e. from SAS, SPSS, Minitab etc)
+
+- use the `xlsx` package to import MS Excel spreadsheets directly (not recommended)
+
+]
+
+---
+
+class: top, left
+
+# importing data
+
+.medium[
+- to view the contents of a data frame, type it's name
+
+- rarely a good idea as just fills up your console
+]
+
+
+```
+[1] flowers
+   treat nitrogen block height weight leafarea shootarea flowers
+1    tip   medium     1    7.5   7.62     11.7      31.9       1
+2    tip   medium     1   10.7  12.14     14.1      46.0      10
+3    tip   medium     1   11.2  12.76      7.1      66.7      10
+4    tip   medium     1   10.4   8.78     11.9      20.3       1
+5    tip   medium     1   10.4  13.58     14.5      26.9       4
+6    tip   medium     1    9.8  10.08     12.2      72.7       9
+7    tip   medium     1    6.9  10.11     13.2      43.1       7
+8    tip   medium     1    9.4  10.28     14.0      28.5       6
+9    tip   medium     2   10.4  10.48     10.5      57.8       5
+10   tip   medium     2   12.3  13.48     16.1      36.9       8
+```
+
+---
+
+class: top, left
+
+# data wrangling
+
+.medium[
+- use the `str()` function to summarise the structure of your data frame
+]
+
+```r
+&gt; str(flowers)
+'data.frame':	96 obs. of  8 variables:
+ $ treat    : Factor w/ 2 levels "notip","tip": 2 2 2 2 2 2 2 2 2 2 ...
+ $ nitrogen : Factor w/ 3 levels "high","low","medium": 3 3 3 3 3 3 3 3 3 3 ...
+ $ block    : int  1 1 1 1 1 1 1 1 2 2 ...
+ $ height   : num  7.5 10.7 11.2 10.4 10.4 9.8 6.9 9.4 10.4 12.3 ...
+ $ weight   : num  7.62 12.14 12.76 8.78 13.58 ...
+ $ leafarea : num  11.7 14.1 7.1 11.9 14.5 12.2 13.2 14 10.5 16.1 ...
+ $ shootarea: num  31.9 46 66.7 20.3 26.9 72.7 43.1 28.5 57.8 36.9 ...
+ $ flowers  : int  1 10 10 1 4 9 7 6 5 8 ...
+```
+.medium[
+- data frame dimensions, list of variables, type of variables
+
+- list variable names with `names()` function 
+]
+
+
+```r
+&gt; names(flowers)
+[1] "treat"     "nitrogen"  "block"     "height"    "weight"    "leafarea"  "shootarea" "flowers"  
+```
+---
+
+class: top, left
+
+# data wrangling
+
+.medium[
+- access variables in your data frame using the `$` notation
+]
+
+
+```r
+&gt; flowers$height
+ [1]  7.5 10.7 11.2 10.4 10.4  9.8  6.9  9.4 10.4 12.3 10.4 11.0  7.1  6.0  9.0  4.5 12.6 10.0 10.0  8.5
+[21] 14.1 10.1  8.5  6.5 11.5  7.7  6.4  8.8  9.2  6.2  6.3 17.2  8.0  8.0  6.4  7.6  9.7 12.3  9.1  8.9
+[41]  7.4  3.1  7.9  8.8  8.5  5.6 11.5  5.8  5.6  5.3  7.5  4.1  3.5  8.5  4.9  2.5  5.4  3.9  5.8  4.5
+[61]  8.0  1.8  2.2  3.9  8.5  8.5  6.4  1.2  2.6 10.9  7.2  2.1  4.7  5.0  6.5  2.6  6.0  9.3  4.6  5.2
+[81]  3.9  2.3  5.2  2.2  4.5  1.8  3.0  3.7  2.4  5.7  3.7  3.2  3.9  3.3  5.5  4.4
+```
+
+.medium[
+- you can extract elements in the data frame using  the `[rowIndex, columnIndex]` method 
+
+- `Index` can either be a positional index or a logical index
+]
+---
+
+class: top, left
+
+# positional index
+
+.medium[
+- provide the row and column position of the data you wish to extract 
+
+- `index` can either be a positional index or a logical index
+]
+
+
+```r
+&gt; flowers[1, 4]      # extract value of first row and 4th column
+[1] 7.5
+```
+
+.medium[
+- extract multiple elements by supplying vectors for `rowIndex` and `columnIndex` 
+
+
+```r
+&gt; flowers[1:3, 1:4]      # extract rows 1 to 3 and columns 1 to 4
+  treat nitrogen block height
+1   tip   medium     1    7.5
+2   tip   medium     1   10.7
+3   tip   medium     1   11.2
+```
+
+
+]
+---
+
+class: top, left
+
+# positional index
+
+.medium[
+- another example
+]
+
+
+```r
+&gt; flowers[c(3,8,20), c(1, 4, 5, 6)]     # rows 3, 8 and 20 and columns 1, 4, 5 and 6
+   treat height weight leafarea
+3    tip   11.2  12.76      7.1
+8    tip    9.4  10.28     14.0
+20   tip    8.5  14.33     13.2
+```
+
+.medium[
+- can assign these extracted values to another object if you want
+
+- new object inherits `data.frame` class
+]
+
+
+```r
+&gt; flowers_red &lt;- flowers[c(3,8,20), c(1, 4, 5, 6)]
+&gt; flowers_red
+   treat height weight leafarea
+3    tip   11.2  12.76      7.1
+8    tip    9.4  10.28     14.0
+20   tip    8.5  14.33     13.2
+```
+
+---
+
+class: top, left
+
+# positional index
+
+.medium[
+- we can use a short cut if we want all rows or all columns extracted
+
+- omitting the column index is shorthand for 'all columns'
+]
+
+
+```r
+&gt; flowers[1:3, ]
+  treat nitrogen block height weight leafarea shootarea flowers
+1   tip   medium     1    7.5   7.62     11.7      31.9       1
+2   tip   medium     1   10.7  12.14     14.1      46.0      10
+3   tip   medium     1   11.2  12.76      7.1      66.7      10
+```
+
+.medium[
+- omitting the row index is shorthand for 'all rows'
+]
+
+
+```r
+&gt; flowers[, 1:3]
+```
+
+
+---
+
+class: top, left
+
+# positional index
+
+.medium[
+- an alternative method to select columns is to name the columns directly for `columnIndex`
+]
+
+
+```r
+&gt; flowers[1:10, c('treat', 'nitrogen', 'leafarea', 'shootarea')]
+   treat nitrogen leafarea shootarea
+1    tip   medium     11.7      31.9
+2    tip   medium     14.1      46.0
+3    tip   medium      7.1      66.7
+4    tip   medium     11.9      20.3
+5    tip   medium     14.5      26.9
+6    tip   medium     12.2      72.7
+7    tip   medium     13.2      43.1
+8    tip   medium     14.0      28.5
+9    tip   medium     10.5      57.8
+10   tip   medium     16.1      36.9
+```
+
+
+---
+
+class: top, left
+
+# logical index
+
+.medium[
+- we can also extract rows based on a logical test
+
+- example, let's extract all rows where the `height` variable is greater than 12 
+]
+
+
+```r
+&gt; flowers[flowers$height &gt; 12,]
+   treat nitrogen block height weight leafarea shootarea flowers
+10   tip   medium     2   12.3  13.48     16.1      36.9       8
+17   tip     high     1   12.6  18.66     18.6      54.0       9
+21   tip     high     1   14.1  19.12     13.1     113.2      13
+32   tip     high     2   17.2  19.20     10.9      89.9      14
+38   tip      low     1   12.3  11.27     13.7      28.7       5
+```
+
+.medium[
+- or where `leafarea` is equal to 8.7
+]
+
+
+```r
+&gt; flowers[flowers$leafarea == 8.7,]
+   treat nitrogen block height weight leafarea shootarea flowers
+35   tip      low     1    6.4   5.97      8.7       7.3       2
+45   tip      low     2    8.5   7.16      8.7      29.9       4
+```
+
+---
+
+class: top, left
+
+# logical index
+
+.medium[
+- we can combine logical tests using the `&amp;` symbol (AND) or the `|` symbol (OR)
+
+- example, extract all rows where `height` is &gt; 10.5 and `nitrogen` is equal to `"medium"`
+]
+
+
+```r
+&gt; flowers[flowers$height &gt; 10.5 &amp; flowers$nitrogen == 'medium',]
+   treat nitrogen block height weight leafarea shootarea flowers
+2    tip   medium     1   10.7  12.14     14.1      46.0      10
+3    tip   medium     1   11.2  12.76      7.1      66.7      10
+10   tip   medium     2   12.3  13.48     16.1      36.9       8
+12   tip   medium     2   11.0  11.56     12.6      31.3       6
+```
+
+.medium[
+- or `height` is greater than 12.3 OR less than 1.8
+]
+
+
+```r
+&gt; flowers[flowers$height &gt; 12.3 | flowers$height &lt; 1.8,]
+   treat nitrogen block height weight leafarea shootarea flowers
+17   tip     high     1   12.6  18.66     18.6      54.0       9
+21   tip     high     1   14.1  19.12     13.1     113.2      13
+32   tip     high     2   17.2  19.20     10.9      89.9      14
+68 notip     high     1    1.2  18.24     16.6     148.1       7
+```
+
+---
+
+class: top, left
+
+# exporting data frames
+
+.medium[
+- the `write.table()` function exports data frames to an external file
+&lt;br&gt;
+]
+.large[
+`write.table(flowers_red, 'output/flowers2.txt', col.names = TRUE, row.names = FALSE)`
+]
+
+.medium[
+- saves `flowers_red` data frame to a file named 'flowers.txt' in the output directory
+
+- `col.names = TRUE` argument includes the column names in the file
+
+- `row.names = FALSE` argument supresses the row names in the file
+]
+
+---
+
+class: middle, left
+
+# other options
+
+.medium[
+- there are many other options for importing and exporting data in R
+
+- the `fread()` and `fwrite()` functions in the `read.table` package are blazingly fast
+
+- the `read_delim()` and `write_delim()` (and other related) functions from the `readr` package for tidyverse alternatives
+
+- if you have a lot of data (I mean alot!) then take a look at the `ff` amd `bigmemory` packages
+]
+
+---
+
+class: top, left
+
+# logical index
+
+.medium[
+- we can also extract rows based on a logical test
+
+- example, let's extract all rows where the `height` variable is greater than 12 
+]
+
+---
+
+class: top, left
+
+# logical index
+
+.medium[
+- we can also extract rows based on a logical test
+
+- example, let's extract all rows where the `height` variable is greater than 12 
+]
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLanguage": ["r", "yaml", "markdown"],
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
