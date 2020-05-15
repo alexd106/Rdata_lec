@@ -378,7 +378,8 @@ class: top, left
 
 ```r
 &gt; names(flowers)
-[1] "treat"     "nitrogen"  "block"     "height"    "weight"    "leafarea"  "shootarea" "flowers"  
+[1] "treat"     "nitrogen"  "block"     "height"    "weight"    "leafarea" 
+[7] "shootarea" "flowers"  
 ```
 ---
 
@@ -393,11 +394,13 @@ class: top, left
 
 ```r
 &gt; flowers$height
- [1]  7.5 10.7 11.2 10.4 10.4  9.8  6.9  9.4 10.4 12.3 10.4 11.0  7.1  6.0  9.0  4.5 12.6 10.0 10.0  8.5
-[21] 14.1 10.1  8.5  6.5 11.5  7.7  6.4  8.8  9.2  6.2  6.3 17.2  8.0  8.0  6.4  7.6  9.7 12.3  9.1  8.9
-[41]  7.4  3.1  7.9  8.8  8.5  5.6 11.5  5.8  5.6  5.3  7.5  4.1  3.5  8.5  4.9  2.5  5.4  3.9  5.8  4.5
-[61]  8.0  1.8  2.2  3.9  8.5  8.5  6.4  1.2  2.6 10.9  7.2  2.1  4.7  5.0  6.5  2.6  6.0  9.3  4.6  5.2
-[81]  3.9  2.3  5.2  2.2  4.5  1.8  3.0  3.7  2.4  5.7  3.7  3.2  3.9  3.3  5.5  4.4
+ [1]  7.5 10.7 11.2 10.4 10.4  9.8  6.9  9.4 10.4 12.3 10.4 11.0  7.1  6.0  9.0
+[16]  4.5 12.6 10.0 10.0  8.5 14.1 10.1  8.5  6.5 11.5  7.7  6.4  8.8  9.2  6.2
+[31]  6.3 17.2  8.0  8.0  6.4  7.6  9.7 12.3  9.1  8.9  7.4  3.1  7.9  8.8  8.5
+[46]  5.6 11.5  5.8  5.6  5.3  7.5  4.1  3.5  8.5  4.9  2.5  5.4  3.9  5.8  4.5
+[61]  8.0  1.8  2.2  3.9  8.5  8.5  6.4  1.2  2.6 10.9  7.2  2.1  4.7  5.0  6.5
+[76]  2.6  6.0  9.3  4.6  5.2  3.9  2.3  5.2  2.2  4.5  1.8  3.0  3.7  2.4  5.7
+[91]  3.7  3.2  3.9  3.3  5.5  4.4
 ```
 
 .medium[
@@ -609,14 +612,15 @@ class: top, left
 
 .medium[
 - the `write.table()` function exports data frames to an external file
+
 &lt;br&gt;
-]
-.large[
-`write.table(flowers_red, 'output/flowers2.txt', col.names = TRUE, row.names = FALSE)`
+
+.center[
+`write.table(flowers, 'flowers2.txt', col.names = TRUE, row.names = FALSE)`
 ]
 
-.medium[
-- saves `flowers_red` data frame to a file named 'flowers.txt' in the output directory
+&lt;br&gt;
+- saves `flowers` data frame to a file named 'flowers.txt'
 
 - `col.names = TRUE` argument includes the column names in the file
 
@@ -638,31 +642,6 @@ class: middle, left
 
 - if you have a lot of data (I mean alot!) then take a look at the `ff` amd `bigmemory` packages
 ]
-
----
-
-class: top, left
-
-# logical index
-
-.medium[
-- we can also extract rows based on a logical test
-
-- example, let's extract all rows where the `height` variable is greater than 12 
-]
-
----
-
-class: top, left
-
-# logical index
-
-.medium[
-- we can also extract rows based on a logical test
-
-- example, let's extract all rows where the `height` variable is greater than 12 
-]
----
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

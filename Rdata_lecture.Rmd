@@ -521,14 +521,15 @@ class: top, left
 
 .medium[
 - the `write.table()` function exports data frames to an external file
+
 <br>
-]
-.large[
-`write.table(flowers_red, 'output/flowers2.txt', col.names = TRUE, row.names = FALSE)`
+
+.center[
+`write.table(flowers, 'flowers2.txt', col.names = TRUE, row.names = FALSE)`
 ]
 
-.medium[
-- saves `flowers_red` data frame to a file named 'flowers.txt' in the output directory
+<br>
+- saves `flowers` data frame to a file named 'flowers.txt'
 
 - `col.names = TRUE` argument includes the column names in the file
 
@@ -551,27 +552,4 @@ class: middle, left
 - if you have a lot of data (I mean alot!) then take a look at the `ff` amd `bigmemory` packages
 ]
 
----
 
-class: top, left
-
-# logical index
-
-.medium[
-- we can also extract rows based on a logical test
-
-- example, let's extract all rows where the `height` variable is greater than 12 
-]
-
----
-
-class: top, left
-
-# logical index
-
-.medium[
-- we can also extract rows based on a logical test
-
-- example, let's extract all rows where the `height` variable is greater than 12 
-]
----
