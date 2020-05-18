@@ -91,7 +91,7 @@ class: left, middle
 
 ]
 ---
-background-image: url(images/data-types.png)
+background-image: url(images/Datatype1.png)
 background-size: 500px
 background-position: 80% 50%
 
@@ -120,7 +120,7 @@ six types of data in R
 ]
 ---
 
-background-image: url(images/data-types.png)
+background-image: url(images/Datastructure.png)
 background-size: 500px
 background-position: 80% 50%
 
