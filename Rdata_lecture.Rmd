@@ -553,7 +553,7 @@ class: middle, left
 
 - the `read_delim()` and `write_delim()` (and other related) functions from the `readr` package for tidyverse alternatives
 
-- if you have a lot of data (I mean alot!) then take a look at the `ff` amd `bigmemory` packages
+- if you have a lot of data (I mean alot!) then take a look at the `ff` and `bigmemory` packages
 ]
 
 
